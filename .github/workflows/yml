@@ -1,0 +1,47 @@
+name: .NET Selenium CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      HEADLESS: "true"                 # ה-TestBase שלך קורא את זה
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"      # שנה ל-7.0.x אם צריך
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test (smoke)
+        run: |
+          mkdir -p TestResults
+          dotnet test --configuration Release --no-build \
+            --logger "trx;LogFileName=results.trx" \
+            --filter "TestCategory=smoke"
+
+      - name: Upload Artifacts (TRX + Screenshots)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: |
+            **/TestResults/*.trx
+            **/TestResults/Screenshots/**
+          if-no-files-found: warn
