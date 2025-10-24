@@ -18,6 +18,7 @@ namespace SauceDemo.Tests
             var inventory = new InventoryPage(Driver, TimeSpan.FromSeconds(15));
             Assert.That(inventory.TitleText(), Does.Contain("Products"));
         }
+        //TEST
 
     }
 }
