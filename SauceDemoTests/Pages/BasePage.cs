@@ -38,7 +38,7 @@ namespace SauceDemo.Pages
             }
         }
 
-        // קליק עם fallback ל-JS
+        // קליק עם fallback ל-JS (TEST)
         protected void Click(By by)
         {
             var el = WaitFor(by);
