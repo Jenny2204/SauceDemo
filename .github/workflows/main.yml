@@ -22,7 +22,8 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test --logger "console;verbosity=detailed"
+ 
 
       - name: Upload test results
         if: always()
