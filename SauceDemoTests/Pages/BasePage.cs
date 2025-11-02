@@ -45,5 +45,6 @@ namespace SauceDemo.Pages
             try { el.Click(); }
             catch { ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].click();", el); }
         }
+
     }
 }

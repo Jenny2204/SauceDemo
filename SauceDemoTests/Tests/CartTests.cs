@@ -24,6 +24,8 @@ namespace SauceDemo.Tests
             cart.OpenCart();
 
             Assert.That(cart.BadgeText(), Is.EqualTo("1"), "מונה העגלה לא הראה 1");
+            Console.WriteLine("✅ ddToCart_ShouldIncreaseBadg");
+
         }
 
         [Test]
@@ -51,5 +53,6 @@ namespace SauceDemo.Tests
                 );
             }, Throws.Nothing, "Checkout Step One לא נטען בזמן");
         }
+
     }
 }
